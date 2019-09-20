@@ -102,6 +102,7 @@ function viewItems() {
                     itemPrice = results[i].price;
                     itemName = results[i].product_name;
                     productSales = results[i].product_sales;
+                    totalPrice = itemPrice * transaction.qty;
                 }
             }
 
@@ -113,7 +114,7 @@ function viewItems() {
 
             else if (parseInt(transaction.qty) <= itemQty) {
                 console.log("\nCongrats! You successfully purchased " + transaction.qty
-                    + " of " + itemName + "(s).");
+                    + " of " + itemName + "(s) for " + totalPrice + ".");
                 lowerQty(transaction.id, transaction.qty, itemQty, itemPrice);
                 startApp();
 
