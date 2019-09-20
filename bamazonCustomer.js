@@ -1,12 +1,13 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
 var consoleTable = require('console.table');
+var pw = require('../bamazonNodeApp/pw.js')
 
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "hockey930",
+    password: pw.pw,
     database: "bamazon"
 });
 
