@@ -15,7 +15,7 @@ connection.connect(function (error) {
     if (error) throw error;
 
     console.log("\n-----------------------------------------------------------------"
-        + "\nWelcome to Bamazon! Check out what we've got for you!\n"
+        + "\nWelcome to Bamazon! What brings you in today?\n"
         + "-----------------------------------------------------------------\n");
 
     startApp();
