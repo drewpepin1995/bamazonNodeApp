@@ -43,17 +43,17 @@ function startApp() {
 };
 
 function viewItems() {
-    var query = "SELECT * FROM products";
+    let query = "SELECT * FROM products";
 
     connection.query(query, function (error, results) {
 
         if (error) throw error;
 
-        var values = [];
+        const values = [];
 
         for (var i = 0; i < results.length; i++) {
 
-            var resultObject = {
+            const resultObject = {
                 ID: results[i].item_id,
                 Item: results[i].product_name,
                 Department: results[i].department_name,
@@ -91,10 +91,10 @@ function viewItems() {
             }
         ]).then(function (transaction) {
 
-            var itemQty;
-            var itemPrice;
-            var itemName;
-            var productSales;
+            let itemQty;
+            let itemPrice;
+            let itemName;
+            let productSales;
 
             for (var i = 0; i < results.length; i++) {
                 if (parseInt(transaction.id) === results[i].item_id) {
