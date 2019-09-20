@@ -21,6 +21,8 @@ connection.connect(function (error) {
 
 });
 
+
+
 function startApp() {
     inquirer.prompt([
         {
@@ -47,7 +49,22 @@ function viewItems() {
 
         if (error) throw error;
 
-        consoleTable(results);
+        var values = [];
+
+        for (var i = 0; i < results.length; i++) {
+
+            var resultObject = {
+                ID: results[i].item_id,
+                Item: results[i].product_name,
+                Department: results[1].department_name,
+                Price: "$" + results[i].price,
+                Stock: results[i].stock_quantity
+            };
+
+            values.push(resultObject);
+        }
+
+        console.table("\nItems for Sale", values);
 
         inquirer.prompt([
             {
@@ -96,30 +113,35 @@ function viewItems() {
 
             else if (parseInt(transaction.qty) <= itemQty) {
                 console.log("\nCongrats! You successfully purchased " + transaction.qty
-                    + " of " + itemName + ".");
+                    + " of " + itemName + "(s).");
                 lowerQty(transaction.id, transaction.qty, itemQty, itemPrice);
-                salesRevenue(transaction.id, transaction.qty, productSales, itemPrice);
+                startApp();
+
             }
         });
     });
+};
+
+
+function lowerQty(item, purchaseQty, stockQty, price) {
+
+    connection.query(
+        "UPDATE products SET ? WHERE ?",
+        [
+            {
+                stock_quantity: stockQty - parseInt(purchaseQty)
+            },
+            {
+                item_id: parseInt(item)
+            }
+        ],
+
+        function (error, response) {
+            if (error) throw error;
+        });
 }
 
-function consoleTable(results) {
-	
-	var values = [];
-	
-	for (var i = 0; i < results.length; i++) {
-		
-		var resultObject = {
-			ID: results[i].item_id,
-            Item: results[i].product_name,
-            Department: results[1].department_name,
-            Price: "$" + results[i].price,
-            Stock: results[i].stock_quantity
-		};
-		
-		values.push(resultObject);
-	}
-	// create table with title items for sale with the values array
-	console.table("\nItems for Sale", values);
-}
+function stopApp() {
+    console.log("\nThanks for stopping by! Have a good day.");
+    connection.end();
+};
