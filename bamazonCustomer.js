@@ -91,7 +91,7 @@ function viewItems() {
             if (parseInt(transaction.qty) > itemQty) {
                 console.log("\nInsufficient inventory for your requested quantity. We have "
                     + itemQty + " in stock. Try again.\n");
-                welcome();
+                startApp();
             }
 
             else if (parseInt(transaction.qty) <= itemQty) {
@@ -102,4 +102,24 @@ function viewItems() {
             }
         });
     });
+}
+
+function consoleTable(results) {
+	
+	var values = [];
+	
+	for (var i = 0; i < results.length; i++) {
+		
+		var resultObject = {
+			ID: results[i].item_id,
+            Item: results[i].product_name,
+            Department: results[1].department_name,
+            Price: "$" + results[i].price,
+            Stock: results[i].stock_quantity
+		};
+		
+		values.push(resultObject);
+	}
+	// create table with title items for sale with the values array
+	console.table("\nItems for Sale", values);
 }
