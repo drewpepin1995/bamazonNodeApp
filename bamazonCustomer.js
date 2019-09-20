@@ -95,14 +95,13 @@ function viewItems() {
             let itemQty;
             let itemPrice;
             let itemName;
-            let productSales;
+            
 
             for (var i = 0; i < results.length; i++) {
                 if (parseInt(transaction.id) === results[i].item_id) {
                     itemQty = results[i].stock_quantity;
                     itemPrice = results[i].price;
                     itemName = results[i].product_name;
-                    productSales = results[i].product_sales;
                     totalPrice = itemPrice * transaction.qty;
                 }
             }
