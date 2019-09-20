@@ -56,7 +56,7 @@ function viewItems() {
             var resultObject = {
                 ID: results[i].item_id,
                 Item: results[i].product_name,
-                Department: results[1].department_name,
+                Department: results[i].department_name,
                 Price: "$" + results[i].price,
                 Stock: results[i].stock_quantity
             };
